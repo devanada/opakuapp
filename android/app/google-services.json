@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "564912987265",
+    "project_id": "hypeotesa",
+    "storage_bucket": "hypeotesa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564912987265:android:15316eef4b2d9b776a8180",
+        "android_client_info": {
+          "package_name": "com.opakuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564912987265-srf81lc33rh5amajvkqfvctbo2qg4sdv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.opakuapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "564912987265-vbjiis6apnh1jl4ceght8u5f8q7o0agn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaSMc-UppvjDKJ4HtWfwK05VSOlNQyaHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564912987265-vbjiis6apnh1jl4ceght8u5f8q7o0agn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
