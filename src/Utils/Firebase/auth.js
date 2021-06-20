@@ -72,3 +72,23 @@ export const login = async (email, password) => {
       return {error: true, msg: err, data: []};
     });
 };
+
+export const getDetailUser = async id => {
+  try {
+    return authRef
+      .doc(id)
+      .get()
+      .then(docSnapshot => {
+        return {
+          error: false,
+          msg: 'Berhasil get detail user',
+          data: docSnapshot.data(),
+        };
+      })
+      .catch(err => {
+        return {error: true, msg: err, data: []};
+      });
+  } catch (error) {
+    return {error: true, msg: error, data: []};
+  }
+};

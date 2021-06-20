@@ -106,3 +106,27 @@ export const insertItem = async () => {
       return {error: true, msg: err, data: []};
     });
 };
+
+export const getLastTransaction = async id => {
+  try {
+    let data = [];
+    return orderRef
+      .where('userID', '==', id)
+      .get()
+      .then(docSnapshot => {
+        docSnapshot.forEach(doc => {
+          data.push({id: doc.id, ...doc.data()});
+        });
+        return {
+          error: false,
+          msg: 'Berhasil get user transaction',
+          data: data,
+        };
+      })
+      .catch(err => {
+        return {error: true, msg: err, data: []};
+      });
+  } catch (error) {
+    return {error: true, msg: error, data: []};
+  }
+};

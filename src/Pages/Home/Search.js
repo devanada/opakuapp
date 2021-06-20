@@ -17,19 +17,20 @@ import CustomItemCard from '../../Components/CustomItemCard';
 const DEVICE = Dimensions.get('screen');
 
 const Search = props => {
+  const {user} = props.route.params;
   const [data, setData] = useState([]);
   const [cart, setCart] = useState({});
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    getCartUser(props.route.params.data.cartID).then(val => {
+    getCartUser(user.cartID).then(val => {
       if (val.error) {
         Alert.alert('Error get history chat', val.msg);
       }
       setCart(val.data);
       setDone(true);
     });
-  }, [props.route.params.data.cartID]);
+  }, [user.cartID]);
 
   const searchText = async e => {
     await searchItem({text: e}).then(val => {
@@ -64,13 +65,14 @@ const Search = props => {
                 onChangeText={searchText.bind(this)}
               />
             </Item>
-            <Item style={{flex: 0}}>
-              <Icon
-                name="cart"
-                style={{color: 'black'}}
-                // onPress={() => testPost()}
-                onPress={() => console.log('test2')}
-              />
+            <Item
+              style={{flex: 0}}
+              onPress={() =>
+                props.navigation.navigate('Cart', {
+                  user: user,
+                })
+              }>
+              <Icon name="cart" style={{color: 'black'}} />
               {cart.cart.length !== 0 && (
                 <Badge
                   style={{

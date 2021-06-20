@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Geolocation from '@react-native-community/geolocation';
+import analytics from '@react-native-firebase/analytics';
 import NumberFormat from 'react-number-format';
 
 import {
@@ -102,6 +103,18 @@ const Cart = props => {
   };
 
   const handleRemove = async item => {
+    await analytics().logRemoveFromCart({
+      value: +item.price,
+      currency: 'idr',
+      items: [
+        {
+          item_brand: item.brand,
+          item_id: item.id,
+          item_name: item.name,
+          item_category: item.type,
+        },
+      ],
+    });
     const removeCart = cart.cart.filter(o => o.id !== item.id);
     const reg = await insertToCart(user.cartID, removeCart);
     if (reg.error) {
@@ -122,6 +135,20 @@ const Cart = props => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    let data = [];
+    cart.cart.forEach(doc => {
+      data.push({
+        item_id: doc.id,
+        item_brand: doc.brand,
+        item_name: doc.name,
+        item_category: doc.type,
+      });
+    });
+    await analytics().logPurchase({
+      value: +total,
+      currency: 'idr',
+      items: data,
+    });
     const reg = await createOrder(cart.cart, total, loc, user.id, user.cartID);
     if (reg.error) {
       Alert.alert('error', reg.msg);
@@ -153,7 +180,7 @@ const Cart = props => {
             />
           ) : (
             <View style={styles.emptyContainer}>
-              <Icon name="emoticon-cry-outline" size={80} color="red" />
+              <Icon name="emoticon-cry-outline" size={80} color="#82d2ee" />
               <Text style={styles.emptyText}>Keranjang Kosong</Text>
             </View>
           )}
@@ -187,6 +214,7 @@ const Cart = props => {
               />
             </View>
           </View>
+          <CustomLoading visible={isLoading} text={'Loading'} />
         </View>
       </>
     );

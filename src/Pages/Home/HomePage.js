@@ -129,21 +129,19 @@ const HomePage = props => {
             <Item
               style={[styles.border, {borderColor: '#0f4c75'}]}
               onPress={() =>
-                props.navigation.navigate('Search', {data: props.data})
+                props.navigation.navigate('Search', {user: props.data})
               }>
               <Icon name="ios-search" />
               <Input placeholder="Search" disabled />
             </Item>
-            <Item style={{flex: 0}}>
-              <Icon
-                name="cart"
-                style={{color: 'black'}}
-                onPress={() =>
-                  props.navigation.navigate('Cart', {
-                    user: props.data,
-                  })
-                }
-              />
+            <Item
+              style={{flex: 0}}
+              onPress={() =>
+                props.navigation.navigate('Cart', {
+                  user: props.data,
+                })
+              }>
+              <Icon name="cart" style={{color: 'black'}} />
               {cart.cart.length !== 0 && (
                 <Badge
                   style={{

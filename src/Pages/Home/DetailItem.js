@@ -38,11 +38,17 @@ const DetailItem = props => {
   }, [user.cartID]);
 
   const insertCart = async () => {
-    await analytics().logEvent('cart', {
-      id: data.id,
-      item: data.name,
-      description: data.description,
-      type: data.type,
+    await analytics().logAddToCart({
+      value: +data.price,
+      currency: 'idr',
+      items: [
+        {
+          item_brand: data.brand,
+          item_id: data.id,
+          item_name: data.name,
+          item_category: data.type,
+        },
+      ],
     });
     if (!cart.cart.some(i => i.id === data.id)) {
       cart.cart.push({...data, jumlah: 1});
